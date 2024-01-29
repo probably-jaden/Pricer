@@ -1,0 +1,48 @@
+exportPattern("^[[:alpha:]]+")
+
+exportPattern("^[[:alpha:]]+")
+# Use
+ importFrom (ggplot2, ggplot)
+ importFrom (ggplot2, geom_point)
+ importFrom (ggplot2, geom_function)
+ importFrom (ggplot2, labs)
+ importFrom (ggplot2, scale_y_continuous)
+ importFrom (ggplot2, theme)
+ importFrom (ggplot2, element_text)
+ importFrom (ggplot2, theme_minimal)
+ importFrom (ggplot2, aes)
+ importFrom (ggplot2, xlim)
+ importFrom (ggplot2, ylim)
+ importFrom (ggplot2, geom_segment)
+ importFrom (ggplot2, annotate)
+
+ importFrom (dplyr, mutate)
+ importFrom (dplyr, `%>%`)
+ importFrom (dplyr, rename)
+ importFrom (dplyr, select)
+ importFrom (dplyr, filter)
+ importFrom (dplyr, group_by)
+ importFrom (dplyr, arrange)
+ importFrom (dplyr, desc)
+ importFrom (dplyr, count)
+ importFrom (dplyr, sym)
+ importFrom (dplyr, summarize)
+ importFrom (dplyr, across)
+ importFrom (dplyr, n)
+
+ importFrom (stats, coef)
+ importFrom (stats, lm)
+ importFrom (stats, formula)
+ importFrom (stats, optimize)
+ importFrom (stats, predict)
+ importFrom (stats, nls)
+ importFrom (stats, as.formula)
+
+ importFrom (scales, label_number_si)
+
+ importFrom (gridExtra, arrangeGrob)
+ importFrom (gridExtra, grid.arrange)
+
+ importFrom("utils", "install.packages")
+
+
