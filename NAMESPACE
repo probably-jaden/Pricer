@@ -39,6 +39,7 @@ exportPattern("^[[:alpha:]]+")
  importFrom (stats, as.formula)
 
  importFrom (scales, label_number)
+ importFrom (scales, cut_short_scale)
 
  importFrom (gridExtra, arrangeGrob)
  importFrom (gridExtra, grid.arrange)
