@@ -38,7 +38,7 @@ exportPattern("^[[:alpha:]]+")
  importFrom (stats, nls)
  importFrom (stats, as.formula)
 
- importFrom (scales, label_number_si)
+ importFrom (scales, label_number)
 
  importFrom (gridExtra, arrangeGrob)
  importFrom (gridExtra, grid.arrange)
