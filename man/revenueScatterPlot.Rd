@@ -1,14 +1,14 @@
-\name{optimizeProfit}
-\alias{optimizeProfit}
+\name{revenueScatterPlot}
+\alias{revenueScatterPlot}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-optimizeProfit
+revenueScatterPlot
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-optimizeProfit(x)
+revenueScatterPlot(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

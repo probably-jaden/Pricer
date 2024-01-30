@@ -1,14 +1,14 @@
-\name{compareDemand}
-\alias{compareDemand}
+\name{linFormulaFancy}
+\alias{linFormulaFancy}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-compareDemand
+linFormulaFancy
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-compareDemand(x)
+linFormulaFancy(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

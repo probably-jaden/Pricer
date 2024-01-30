@@ -1,14 +1,14 @@
-\name{optimizeRevenue}
-\alias{optimizeRevenue}
+\name{powInterpret}
+\alias{powInterpret}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-optimizeRevenue
+powInterpret
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-optimizeRevenue(x)
+powInterpret(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

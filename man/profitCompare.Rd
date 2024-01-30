@@ -1,14 +1,14 @@
-\name{compareProfit}
-\alias{compareProfit}
+\name{profitCompare}
+\alias{profitCompare}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-compareProfit
+profitCompare
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-compareProfit(x)
+profitCompare(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

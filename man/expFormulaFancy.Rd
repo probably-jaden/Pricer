@@ -1,14 +1,14 @@
-\name{compareRevenue}
-\alias{compareRevenue}
+\name{expFormulaFancy}
+\alias{expFormulaFancy}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-compareRevenue
+expFormulaFancy
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-compareRevenue(x)
+expFormulaFancy(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

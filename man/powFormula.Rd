@@ -1,14 +1,14 @@
-\name{compareModels}
-\alias{compareModels}
+\name{powFormula}
+\alias{powFormula}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-compareModels
+powFormula
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-compareModels(x)
+powFormula(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
