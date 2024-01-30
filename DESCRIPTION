@@ -1,12 +1,11 @@
-Package: Test2
+Package: Pricer
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Price your product/service based on customer validation
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Jaden Earl
+Maintainer: Jaden Earl <jadendwightearl@gmail.com>
+Description: Take customer data (such as willingness to pay data), potential market size, and cost structures to determine optimal pricing, expected revenue, cost, and profit.
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Imports:
