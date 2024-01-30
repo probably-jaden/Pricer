@@ -21,6 +21,7 @@ check_packages <- function() {
 
 #testBool <- FALSE
 
+
 #testing <- function(bool){
 #  if(bool){
 #   testBool <<- TRUE
@@ -31,9 +32,11 @@ check_packages <- function() {
 #  }
 #}
 
-#test dataset for durable breaking Sigmoid
-# if(testBool) dp <- tibble(wtp = c(64, 18, 46, 92, 110, 138, 113, 89, 0, 258, 205, 0, 18, 202, 46, 258, 0, 141, 0, 46, 61, 101, 64, 215, 95, 43, 46, 46, 132, 21, 18, 113, 9, 18, 21, 18, 104, 6, 0, 101, 6, 224, 322, 18, 316, 156, 104, 322, 285, 208, 316, 0, 288, 95, 6, 52, 46, 0, 18, 64, 98, 248, 18, 110, 0, 67, 0, 18, 0, 89, 132, 101, 18, 215, 18, 0, 0, 104, 285, 3, 46, 141, 322, 291, 89, 0, 101, 113, 67, 3, 132, 215, 224, 291, 9, 291, 267, 6, 6, 61, 178, 285, 64, 126, 0, 101, 15))
 
+
+
+#test dataset for durable breaking Sigmoid
+#if(testBool) dp <- dplyr::tibble(wtp = c(64, 18, 46, 92, 110, 138, 113, 89, 0, 258, 205, 0, 18, 202, 46, 258, 0, 141, 0, 46, 61, 101, 64, 215, 95, 43, 46, 46, 132, 21, 18, 113, 9, 18, 21, 18, 104, 6, 0, 101, 6, 224, 322, 18, 316, 156, 104, 322, 285, 208, 316, 0, 288, 95, 6, 52, 46, 0, 18, 64, 98, 248, 18, 110, 0, 67, 0, 18, 0, 89, 132, 101, 18, 215, 18, 0, 0, 104, 285, 3, 46, 141, 322, 291, 89, 0, 101, 113, 67, 3, 132, 215, 224, 291, 9, 291, 267, 6, 6, 61, 178, 285, 64, 126, 0, 101, 15))
 
 
 
@@ -141,7 +144,6 @@ demandDurable <- function(data){
   return(data)
 }
 
-# if(testBool) tb <- demandDurable(dp)
 
 groupByPrice_ThenSum <- function(data, price, varToSum, newName){
   check_packages()
@@ -336,7 +338,7 @@ demandFunction <- function(price, data, type, population, sample = NA){
     geom_segment(x = 0, y = fQ(price), xend = price, yend = fQ(price),
                  linetype = "dashed", color = "orange", lwd = .4)+
     labs(title = title, x = "Price ($'s)", y = "Quantity Sold ") +
-    scale_y_continuous(labels = label_number_si(),
+    scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, NA))+
     theme(plot.title = element_text(face = "bold"))+
@@ -388,7 +390,7 @@ revenueFunction <- function(price, data, type, population, sample = NA){
     geom_segment(x = 0, y = fR(price), xend = price, yend = fR(price),
                  linetype = "dashed", color = "skyblue", lwd = .4)+
     labs(title = title, x = "Price ($'s)", y = "Revenue ($'s) ") +
-    scale_y_continuous(labels = label_number_si(),
+    scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, NA))+
     theme(plot.title = element_text(face = "bold"))+
@@ -500,7 +502,7 @@ demandPlot <- function(data, type, population, sample = NA){
              label = bquote(R^2 == .(rSq)),
              vjust = 2, hjust = 1.1, size = 5,
              color = "darkorange", alpha = .3)+
-    scale_y_continuous(labels = label_number_si(),
+    scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, NA))+
     theme(plot.title = element_text(face = "bold"))+
@@ -866,7 +868,7 @@ revenuePlot <- function(data, type, population, sample = NA){
              label =(paste("Rev:", show_Rev)),
              vjust = 3.5, hjust = 1, size = 3,
              color = "deepskyblue3", alpha = .8) +
-    scale_y_continuous(labels = label_number_si(),
+    scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, NA))+
     theme_minimal()+
@@ -1008,7 +1010,7 @@ profitFunction <- function(price, data, type, variable, fixed, population, sampl
     geom_segment(x = 0, y = fPi(price), xend = price, yend = fPi(price),
                  linetype = "dashed", color = "green3", lwd = .4)+
     labs(title = title, x = "Price ($'s)", y = "Profit ($'s) ") +
-    scale_y_continuous(labels = label_number_si(),
+    scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, NA))+
     theme(plot.title = element_text(face = "bold"))+
@@ -1092,7 +1094,7 @@ profitPlot <- function(data, type, variable, fixed, population, sampleSize = NA,
           axis.title.x =element_text(size = 8),
           axis.title.y =element_text(size = 8))+
     theme_minimal()+
-    scale_y_continuous(labels = label_number_si(),
+    scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, yCap))+
     labs(title = title)+
@@ -1139,7 +1141,7 @@ profitRevFunction <- function(price, data, type, variable, fixed, population, sa
     labs(title = title, x = "Price ($'s)", y = "Profit ($'s) ") +
     geom_point(x = price, y = fPi(price), color = 'green4', size = 3) +
     geom_point(x = price, y = fR(price), color = 'deepskyblue3', size = 3) +
-    scale_y_continuous(labels = label_number_si(),
+    scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, yCap))+
     theme(plot.title = element_text(face = "bold"))+
