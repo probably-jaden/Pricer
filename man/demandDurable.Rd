@@ -6,13 +6,17 @@ demandDurable
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
+
+Calculates the quantity demanded for durable goods based on the provided data containing 'wtp' (willingness to pay) information.
+
 }
 \usage{
 demandDurable(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{data}{
+data frame (needs to be in a tibble format) with 'wtp' or `WTP` column representing the willingness to pay for durable goods.
 %%     ~~Describe \code{x} here~~
 }
 }
@@ -20,11 +24,7 @@ demandDurable(x)
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Returns the input data with an additional 'quantity' and 'revenue' columns. 'quantity' indicates the calculated quantity demanded for durable goods from the sampled customers at that willingness to pay level. 'revenue' indicates the revenue generated from the sampled customers at that willingness to pay level.
 }
 \references{
 %% ~put references to the literature/web site here ~
