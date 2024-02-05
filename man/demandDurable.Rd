@@ -42,9 +42,6 @@ Returns the input data with an additional 'quantity' and 'revenue' columns. 'qua
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-my_survey_data <- tibble(wtp = c(160, 230 ,180, 300, 130, 150, 200, 240, 220, 225, 200))
-
-demandDurable(my_survey_data)
 
 
 ## The function is currently defined as
