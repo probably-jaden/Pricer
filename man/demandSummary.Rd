@@ -5,26 +5,26 @@
 demandSummary
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Generates a statistical summary of the demand model fitted to the provided data with 'wtp' and 'quantity' information.
 }
 \usage{
 demandSummary(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{data}{
+Data frame (must be a tibble) with 'wtp' column representing the willingness to pay and 'quantity' column indicating the corresponding quantity.
+}
+  \item{type}{
+  Model type to fit, choose from "Linear," "Exponential," "Log," "Power," or "Sigmoid."
+
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Returns a summary of the fitted demand model (see the 'summary()' and 'lm()' functions), including relevant statistics and coefficients, based on the specified type.
 }
 \references{
 %% ~put references to the literature/web site here ~

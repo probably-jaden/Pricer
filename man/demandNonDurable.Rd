@@ -5,26 +5,22 @@
 demandNonDurable
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Estimates the quantity demanded for non-durable goods based on the provided data containing 'price' and 'quantityPerPerson' information.
 }
 \usage{
-demandNonDurable(x)
+demandNonDurable(data)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{data}{
+Data frame (must be tibble) with 'price' column representing the price of non-durable goods and 'quantityPerPerson' column indicating the quantity desired per person at that price.
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Returns the input data with an additional 'quantity' and 'revenue' columns. 'quantity' indicates the calculated quantity demanded for durable goods from the sampled customers at that willingness to pay level. 'revenue' indicates the revenue generated from the sampled customers at that willingness to pay level.
 }
 \references{
 %% ~put references to the literature/web site here ~

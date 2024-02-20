@@ -46,4 +46,6 @@ exportPattern("^[[:alpha:]]+")
 
  importFrom("utils", "install.packages")
 
+ importFrom(data.table, `:=`)
+
 

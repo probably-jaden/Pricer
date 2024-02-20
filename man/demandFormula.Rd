@@ -5,26 +5,31 @@
 demandFormula
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Generates a summary of the equation as well as interpretations for the demand model fitted to the provided data with 'wtp' and 'quantity' information.
 }
 \usage{
-demandFormula(x)
+demandFormula(data, type, population, survey = length(data))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{data}{
+  Data frame (must be a tibble) with 'wtp' column representing the willingness to pay and 'quantity' column indicating the corresponding quantity.
+}
+  \item{type}{
+  Type of demand model to be fitted. Choose from "Linear," "Exponential," "Log," "Power," or "Sigmoid."
+}
+  \item{population}{
+  Population size of total customer demand, this is used to scale up survey data to represent all of your customers
+}
+  \item{survey}{
+  Surveyed population size, this is used to scale up survey data to represent all of your customers
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Returns a summary of the equation as well as interpretations for the demand model.
 }
 \references{
 %% ~put references to the literature/web site here ~

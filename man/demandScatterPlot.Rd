@@ -5,26 +5,22 @@
 demandScatterPlot
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Generates a scatter plot visualizing the demand relationship between willingness to pay ('wtp') and quantity for a given dataset.
 }
 \usage{
 demandScatterPlot(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{data}{
+Data frame (must be a tibble) with 'wtp' column representing the willingness to pay and 'quantity' column indicating the corresponding quantity.
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Returns a scatter plot illustrating the demand relationship between 'wtp' and 'quantity' in the provided dataset.
 }
 \references{
 %% ~put references to the literature/web site here ~
