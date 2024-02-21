@@ -10,7 +10,5 @@ test_that("Durable Data Wrangling works", {
     mutate(quantity = cumsum(count)) %>%
     mutate(revenue = wtp * quantity)
 
-
-
   expect_equal(demandDurable_dp, val_durableDP)
 })
