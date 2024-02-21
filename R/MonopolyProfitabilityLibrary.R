@@ -143,7 +143,6 @@ demandDurable <- function(data){
   data <- quantityCreation(data)
   data <- revenueCreation(data)
 
-  print(data)
   return(data)
 }
 
@@ -167,7 +166,6 @@ groupByPrice_ThenSum <- function(data, price, varToSum, newName){
   return(data)
 }
 
-
 demandNonDurable <- function(data, price, quantityPerPerson){
   check_packages()
   data <- groupByPrice_ThenSum(data, {{price}}, {{quantityPerPerson}}, "quantity") %>%
@@ -175,7 +173,6 @@ demandNonDurable <- function(data, price, quantityPerPerson){
     rename(wtp = {{price}}) %>%
     select(wtp, quantity, revenue)
 
-  print(data)
   return(data)
 }
 
@@ -525,7 +522,8 @@ demandPlot <- function(data, type, population, sample = NA){
           axis.title.y =element_text(size = 8))+
     theme(plot.title = element_text(face = "bold"))
 
-  return(newPlot)
+  suppressWarnings(print(newPlot))
+  return()
 }
 # if(testBool) demandPlot(tb, "Sigmoid", 1e6, 100)
 
