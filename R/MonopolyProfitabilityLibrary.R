@@ -858,8 +858,8 @@ revenuePlot <- function(data, type, population, sample = NA){
   if(class(fQ) == class(NA)) return()
   fR <- fR(data, type, population, sample)
 
-  opt_Rev <- optimize(fR, lower = 0, upper = data$wtp, maximum = TRUE )[[2]]
-  opt_Price <- optimize(fR, lower = 0, upper = data$wtp, maximum = TRUE )[[1]]
+  opt_Rev <- optimize(fR, lower = 0, upper = max(data$wtp), maximum = TRUE )[[2]]
+  opt_Price <- optimize(fR, lower = 0, upper = max(data$wtp), maximum = TRUE )[[1]]
 
   show_Rev <- paste0('$', conNum_short(opt_Rev))
   show_Price <- paste0('$', conNum_short(round(opt_Price,2)))
