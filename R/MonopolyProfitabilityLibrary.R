@@ -161,7 +161,7 @@ groupByPrice_ThenSum <- function(data, price, varToSum, newName){
 
   data <- data %>%
     group_by({{price}}) %>%
-    mutate({{newName}} := sum({{varToSum}}))
+    summarize({{newName}} := sum({{varToSum}}))
 
   return(data)
 }
@@ -175,6 +175,8 @@ demandNonDurable <- function(data, price, quantityPerPerson){
 
   return(data)
 }
+
+
 
 scatterPlot <- function(data, xColumn, yColumn){
   check_packages()
@@ -810,10 +812,10 @@ sigFormula <- function(data, population, sample = NA){
   C_scale <- round(coef(model)[[3]], 2)
 
   cat("Sigmoid Demand: \n\n")
-  cat("    Quantity = intercept / (1 + exp{(Mid-Point - Price) / Scale})\n")
+  cat("    Quantity = Asymptote / (1 + exp{(Mid-Point - Price) / Scale})\n")
   cat(paste0("    Quantity = ", A_Int, " / (1 + exp{(", B_Mid, " - Price) / ", C_scale, " } \n"))
 
-  cat(paste0("\nIntercept: If the price was $0 we expect to sell ", A_Int, " unit(s)\n"))
+  cat(paste0("\nAsymptotet: The demand/quantity does not exceed ", A_Int, " unit(s) got any price\n"))
   cat(paste0("Mid-Point: The curve will change from decreasing at an increasing \n           rate to a decreasing rate when the price equals $", B_Mid, "\n\n"))
 }
 # if(testBool) sigFormula(tb, 102)
