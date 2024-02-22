@@ -841,8 +841,8 @@ demandFormula <- function(data, type, population, sample = NA){
 revenueOptimize <- function(data, type, population, sample = NA){
   check_packages()
   fR <- fR(data, type, population, sample)
-  opt_Rev <- optimize(fR, lower = 0, upper = data$wtp, maximum = TRUE )[[2]]
-  opt_Price <- round(optimize(fR, lower = 0, upper = data$wtp, maximum = TRUE )[[1]],2)
+  opt_Rev <- optimize(fR, lower = 0, upper = max(data$wtp), maximum = TRUE )[[2]]
+  opt_Price <- round(optimize(fR, lower = 0, upper = max(data$wtp), maximum = TRUE )[[1]],2)
 
   revenueFunction(opt_Price, data, type, population, sample)
 
@@ -1061,8 +1061,8 @@ profitOptimize <- function(data, type, variable, fixed, population, sample = NA)
   fC <- fC(variable, fixed, fQ)
   fPi <- fPi(fR, fC)
 
-  opt_Profit <- (optimize(fPi, lower = 0, upper = data$wtp, maximum = TRUE )[[2]])
-  opt_Price <- round(optimize(fPi, lower = 0, upper = data$wtp, maximum = TRUE )[[1]],2)
+  opt_Profit <- (optimize(fPi, lower = 0, upper = max(data$wtp), maximum = TRUE )[[2]])
+  opt_Price <- round(optimize(fPi, lower = 0, upper = max(data$wtp), maximum = TRUE )[[1]],2)
 
   profitFunction(opt_Price, data, type, variable, fixed, population, sample)
 
