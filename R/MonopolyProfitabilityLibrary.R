@@ -32,17 +32,16 @@ check_packages <- function() {
 #  }
 #}
 
+#library(gridExtra)
+#library(scales)
+#library(data.table)
+#library(tidyverse)
 
 
 #testBool <- TRUE
 #test dataset for durable breaking Sigmoid
 #if(testBool) dp <- dplyr::tibble(wtp = c(64, 18, 46, 92, 110, 138, 113, 89, 0, 258, 205, 0, 18, 202, 46, 258, 0, 141, 0, 46, 61, 101, 64, 215, 95, 43, 46, 46, 132, 21, 18, 113, 9, 18, 21, 18, 104, 6, 0, 101, 6, 224, 322, 18, 316, 156, 104, 322, 285, 208, 316, 0, 288, 95, 6, 52, 46, 0, 18, 64, 98, 248, 18, 110, 0, 67, 0, 18, 0, 89, 132, 101, 18, 215, 18, 0, 0, 104, 285, 3, 46, 141, 322, 291, 89, 0, 101, 113, 67, 3, 132, 215, 224, 291, 9, 291, 267, 6, 6, 61, 178, 285, 64, 126, 0, 101, 15))
 
-
-#library(gridExtra)
-#library(scales)
-#library(data.table)
-#library(tidyverse)
 #dp <- demandDurable(dp)
 
 
@@ -850,6 +849,8 @@ revenueOptimize <- function(data, type, population, sample = NA){
 }
 # if(testBool) revenueOptimize(tb, "Linear", 1e6, 100)
 
+
+
 revenuePlot <- function(data, type, population, sample = NA){
   check_packages()
   title <- paste("Revenue:", type)
@@ -872,18 +873,18 @@ revenuePlot <- function(data, type, population, sample = NA){
 
   newPlot <- ggplot(data = newTibble)+
     geom_segment(x = opt_Price, y = 1, xend = opt_Price, yend = opt_Rev,
-                 linetype = "dashed", color = "deepskyblue", lwd = .3)+
-    geom_function(fun = fR, color = "deepskyblue", lwd = 1.3, alpha = .3)+
+                 linetype = "dashed", color = "deepskyblue2", lwd = .3)+
+    geom_function(fun = fR, color = "deepskyblue2", lwd = 1.3, alpha = .3)+
     geom_point(mapping = aes(x = wtp, y = scaled_revenue), color = "deepskyblue3", alpha = .5)+
     labs(title = title, x = "Price ($'s)", y = "Revenue ($'s)") +
-    annotate("text", x = Inf, y = Inf,
-             label = paste("Price:", show_Price),
-             vjust = 1.5, hjust = 1, size = 3,
-             color = "deepskyblue3", alpha = .8) +
-    annotate("text", x = Inf, y = Inf,
-             label =(paste("Rev:", show_Rev)),
-             vjust = 3.5, hjust = 1, size = 3,
-             color = "deepskyblue3", alpha = .8) +
+    annotate("label", x = Inf, y = Inf,
+              label = paste("Price:", show_Price, " "),
+              vjust = 1, hjust = 1, size = 3,
+             color = "deepskyblue4", alpha = .8) +
+    annotate("label", x = Inf, y = Inf,
+             label =(paste("Rev:", show_Rev, "  ")),
+             vjust = 1, hjust = 2.25, size = 3,
+             color = "deepskyblue4", alpha = .8) +
     scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, NA))+
@@ -892,6 +893,7 @@ revenuePlot <- function(data, type, population, sample = NA){
 
   return(newPlot)
 }
+
 # if(testBool) revenuePlot(tb, "Sigmoid", 1e6, 100)
 
 allLinearSummaries <- function(data){
@@ -1100,14 +1102,14 @@ profitPlot <- function(data, type, variable, fixed, population, sampleSize = NA,
     geom_function(fun = fC, color = "brown1", lwd = 1.2, alpha = .7)+
     geom_function(fun = fPi, color ="green3",lwd = 1.2, alpha = .7) +
     labs(x = "Price ($'s)", y = "Profit ($'s)") +
-    annotate("text", x = Inf, y = Inf,
+    annotate("label", x = Inf, y = Inf,
              label = paste("Price:", show_Price),
-             vjust = 1.5, hjust = 1.5, size = 3,
-             color = "forestgreen", alpha = .8) +
-    annotate("text", x = Inf, y = Inf,
-             label =(paste("Profit:", show_Profit)),
-             vjust = 3.5, hjust = 1.3, size = 3,
-             color = "forestgreen", alpha = .8) +
+             vjust = 1, hjust = 1, size = 3,
+             color = "darkgreen", alpha = .8) +
+    annotate("label", x = Inf, y = Inf,
+             label =(paste("Profit:", show_Profit, "  ")),
+             vjust = 1, hjust = 2.1, size = 3,
+             color = "darkgreen", alpha = .8) +
     theme(axis.text = element_text(size = 6),
           axis.title.x =element_text(size = 8),
           axis.title.y =element_text(size = 8))+
@@ -1120,6 +1122,7 @@ profitPlot <- function(data, type, variable, fixed, population, sampleSize = NA,
 
   return(plot)
 }
+
 #Test
 # if(testBool) profitPlot(tb, "Exponential", v, f, Pop)
 
