@@ -339,8 +339,8 @@ demandFunction <- function(price, data, type, population, sample = NA){
 
   price <- round(price, 2)
 
-  show_price <- paste0('$', format(price, big.mark = ","))
-  show_quantity <- format(round(fQ(price)), big.mark = ",")
+  show_price <- paste0('$', format(round(price,2), big.mark = ","))
+  show_quantity <- conNum_short(round(fQ(price), 2))
 
 
   title = paste0("Quantity when Price is ", show_price)
@@ -359,14 +359,16 @@ demandFunction <- function(price, data, type, population, sample = NA){
                        limits = c(0, NA))+
     theme(plot.title = element_text(face = "bold"))+
     theme_minimal()+
-    annotate("text", x = Inf, y = Inf,
+    annotate("label", x = Inf, y = Inf,
              label = paste("Price:", show_price),
-             vjust = 1.5, hjust = 1, size = 4,
-             color = "darkorange2") +
-    annotate("text", x = Inf, y = Inf,
+             vjust = 1, hjust = 1, size = 4,
+             color = "darkorange2", alpha = .8,
+             fontface = "bold") +
+    annotate("label", x = Inf, y = Inf,
              label =(paste("Quantity:", show_quantity)),
-             vjust = 3.5, hjust = 1, size = 4,
-             color = "darkorange2") +
+             vjust = 2.5, hjust = 1, size = 4,
+             color = "darkorange2", alpha = .8,
+             fontface = "bold") +
     theme(axis.text = element_text(size = 6),
           axis.title.x =element_text(size = 8),
           axis.title.y =element_text(size = 8))+
@@ -376,7 +378,7 @@ demandFunction <- function(price, data, type, population, sample = NA){
   return(fQ(price))
 }
 
-# if(testBool) demandFunction(20, tb, "Sigmoid", 1e6)
+# if(testBool) demandFunction(20, dp, "Exponential", 1e6)
 
 
 fR <- function(data, type, pop, sample = NA) function(p) fQ(data, type, pop, sample)(p) * p
@@ -392,8 +394,8 @@ revenueFunction <- function(price, data, type, population, sample = NA){
 
   price <- round(price, 2)
 
-  show_price <- paste0('$', format(price, big.mark = ","))
-  show_revenue <- paste0('$', format(round(fR(price)), big.mark = ","))
+  show_price <- paste0('$', format(round(price,2), big.mark = ","))
+  show_revenue <- paste0('$', format(conNum_short(round(fR(price),2)), big.mark = ","))
 
   title = paste0("Revenue when Price is ", show_price)
 
@@ -414,12 +416,12 @@ revenueFunction <- function(price, data, type, population, sample = NA){
     annotate("label", x = Inf, y = Inf,
              label = paste("Price:", show_price),
              vjust = 1, hjust = 1, size = 4,
-             color = "skyblue4",
+             color = "skyblue4", alpha = .8,
              fontface = "bold") +
     annotate("label", x = Inf, y = Inf,
              label =(paste("Revenue:", show_revenue)),
-             vjust = 1, hjust = 2.3, size = 4,
-             color = "skyblue4",
+             vjust = 2.5, hjust = 1, size = 4,
+             color = "skyblue4", alpha = .8,
              fontface = "bold") +
     theme(axis.text = element_text(size = 6),
           axis.title.x =element_text(size = 8),
@@ -432,7 +434,7 @@ revenueFunction <- function(price, data, type, population, sample = NA){
 
 
 
-# if(testBool) revenueFunction(20, tb, "Sigmoid", 1e6)
+# if(testBool) revenueFunction(20, dp, "Exponential", 1e6)
 
 
 
@@ -866,7 +868,7 @@ revenuePlot <- function(data, type, population, sample = NA){
   opt_Rev <- optimize(fR, lower = 0, upper = max(data$wtp), maximum = TRUE )[[2]]
   opt_Price <- optimize(fR, lower = 0, upper = max(data$wtp), maximum = TRUE )[[1]]
 
-  show_Rev <- paste0('$', conNum_short(opt_Rev))
+  show_Rev <- paste0('$', conNum_short(round(opt_Rev, 2)))
   show_Price <- paste0('$', conNum_short(round(opt_Price,2)))
 
   if(class(sample) == class(NA)) sample <- nrow(data)
@@ -878,17 +880,17 @@ revenuePlot <- function(data, type, population, sample = NA){
   newPlot <- ggplot(data = newTibble)+
     geom_segment(x = opt_Price, y = 1, xend = opt_Price, yend = opt_Rev,
                  linetype = "dashed", color = "deepskyblue2", lwd = .3)+
-    geom_function(fun = fR, color = "deepskyblue2", lwd = 1.3, alpha = .3)+
-    geom_point(mapping = aes(x = wtp, y = scaled_revenue), color = "deepskyblue3", alpha = .5)+
+    geom_function(fun = fR, color = "deepskyblue3", lwd = 1.3, alpha = .5)+
+    geom_point(mapping = aes(x = wtp, y = scaled_revenue), color = "deepskyblue3", alpha = .7)+
     labs(title = title, x = "Price ($'s)", y = "Revenue ($'s)") +
     annotate("label", x = Inf, y = Inf,
-              label = paste("Price:", show_Price, ""),
+              label = paste("Price:", show_Price),
               vjust = 1, hjust = 1, size = 3,
              color = "deepskyblue4", alpha = .8,
              fontface = "bold") +
     annotate("label", x = Inf, y = Inf,
-             label =(paste("Rev:", show_Rev, " ")),
-             vjust = 1, hjust = 2.3, size = 3,
+             label =(paste("Revenue:", show_Rev)),
+             vjust = 2.5, hjust = 1, size = 3,
              color = "deepskyblue4", alpha = .8,
              fontface = "bold") +
     scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
@@ -900,7 +902,7 @@ revenuePlot <- function(data, type, population, sample = NA){
   return(newPlot)
 }
 
-# if(testBool) revenuePlot(tb, "Sigmoid", 1e6, 100)
+# if(testBool) revenuePlot(dp, "Exponential", 1e6, 100)
 
 allLinearSummaries <- function(data){
   check_packages()
@@ -965,7 +967,7 @@ demandCompare <- function(data, population, sample = NA, n = 3) {
   return(final_plot)
 }
 
-# if(testBool) demandCompare(tb, 1e6)
+# if(testBool) demandCompare(dp, 1e6)
 
 revenueCompare <- function(data, population, sample = NA, n = 3) {
   check_packages()
@@ -982,9 +984,7 @@ revenueCompare <- function(data, population, sample = NA, n = 3) {
   return(final_plot)
 }
 #Test
-# if(testBool) revenueCompare(tb, 1e6, 10)
-
-
+#if(testBool) revenueCompare(dp, 1e6, 10, 2)
 
 v <- 20
 f <- 10000
@@ -1022,8 +1022,8 @@ profitFunction <- function(price, data, type, variable, fixed, population, sampl
 
   price <- round(price, 2)
 
-  show_price <- paste0('$', format(price, big.mark = ","))
-  show_profit <- paste0(format(round(fPi(price)), big.mark = ","))
+  show_price <- paste0('$', format(round(price, 2), big.mark = ","))
+  show_profit <- paste0('$',conNum_short(round(fPi(price),2)))
 
   title = paste0("Profit when Price is ", show_price)
 
@@ -1044,12 +1044,12 @@ profitFunction <- function(price, data, type, variable, fixed, population, sampl
     annotate("label", x = Inf, y = Inf,
              label = paste("Price:", show_price),
              vjust = 1, hjust = 1, size = 4,
-             color = "darkgreen",
+             color = "darkgreen", alpha = .8,
              fontface = "bold") +
     annotate("label", x = Inf, y = Inf,
-             label =(paste("Profit: $", show_profit, "")),
-             vjust = 1, hjust = 2.3, size = 4,
-             color = "darkgreen",
+             label =(paste("Profit:", show_profit)),
+             vjust = 2.5, hjust = 1, size = 4,
+             color = "darkgreen", alpha = .8,
              fontface = "bold") +
     theme(axis.text = element_text(size = 6),
           axis.title.x =element_text(size = 8),
@@ -1060,9 +1060,8 @@ profitFunction <- function(price, data, type, variable, fixed, population, sampl
   return(fPi(price))
 }
 
+# if(testBool) profitFunction(100, dp, "Exponential", v, f, 1e6)
 
-
-# if(testBool) profitFunction(30.5683, tb, "Exponential", v, f, 1e6)
 
 profitOptimize <- function(data, type, variable, fixed, population, sample = NA){
   check_packages()
@@ -1081,7 +1080,7 @@ profitOptimize <- function(data, type, variable, fixed, population, sample = NA)
   return(list(opt_Profit, opt_Price))
 }
 
-# if(testBool) profitOptimize(tb, "Sigmoid", 21, 1e5, 1e5)
+# if(testBool) profitOptimize(dp, "Exponential", 21, 1e5, 1e5)
 
 profitPlot <- function(data, type, variable, fixed, population, sampleSize = NA, yCap = 0){
   check_packages()
@@ -1097,7 +1096,7 @@ profitPlot <- function(data, type, variable, fixed, population, sampleSize = NA,
   opt_Price <- optimize(fPi, lower = 0, upper = max(data$wtp), maximum = TRUE)[[1]]
   opt_Revenue <- optimize(fR, lower = 0, upper = max(data$wtp), maximum = TRUE)[[2]]
 
-  show_Profit <- paste0('$', conNum_short(opt_Profit))
+  show_Profit <- paste0('$', conNum_short(round(opt_Profit, 2)))
   show_Price <- paste0('$', conNum_short(round(opt_Price,2)))
 
   if(yCap == 0){
@@ -1118,8 +1117,8 @@ profitPlot <- function(data, type, variable, fixed, population, sampleSize = NA,
              color = "darkgreen", alpha = .8,
              fontface = "bold") +
     annotate("label", x = Inf, y = Inf,
-             label =(paste("Profit:", show_Profit, "  ")),
-             vjust = 1, hjust = 2.3, size = 3,
+             label =(paste("Profit:", show_Profit)),
+             vjust = 2.5, hjust = 1, size = 3,
              color = "darkgreen", alpha = .8,
              fontface = "bold") +
     theme(axis.text = element_text(size = 6),
@@ -1137,7 +1136,7 @@ profitPlot <- function(data, type, variable, fixed, population, sampleSize = NA,
 
 
 #Test
-# if(testBool) profitPlot(tb, "Exponential", v, f, Pop)
+#if(testBool) profitPlot(dp, "Exponential", v, f, Pop)
 
 
 profitRevFunction <- function(price, data, type, variable, fixed, population, sample = NA, yCap = 0){
@@ -1154,9 +1153,9 @@ profitRevFunction <- function(price, data, type, variable, fixed, population, sa
     yCap <- opt_Revenue
   }
 
-  show_price <- paste0('$', format(price, big.mark = ","))
-  show_revenue <- paste0('$', format(fR(price), big.mark = ","))
-  show_profit <- paste0('$', format(round(fPi(price)), big.mark = ","))
+  show_price <- paste0('$', format(round(price,2), big.mark = ","))
+  show_revenue <- paste0('$', conNum_short(round(fR(price), 2)))
+  show_profit <- paste0('$', conNum_short(round(fPi(price), 2)))
 
   title = paste0("Profit and Revenue when Price is ", show_price)
 
@@ -1180,18 +1179,21 @@ profitRevFunction <- function(price, data, type, variable, fixed, population, sa
                        limits = c(0, yCap))+
     theme(plot.title = element_text(face = "bold"))+
     theme_minimal()+
-    annotate("text", x = Inf, y = Inf,
+    annotate("label", x = Inf, y = Inf,
              label = paste("Price:", show_price),
-             vjust = 1.5, hjust = 1, size = 4,
-             color = "grey30") +
-    annotate("text", x = Inf, y = Inf,
-             label =(paste("Revenue:", show_revenue)),
-             vjust = 3.5, hjust = 1, size = 4,
-             color = "deepskyblue3") +
-    annotate("text", x = Inf, y = Inf,
+             vjust = 1, hjust = 1, size = 4,
+             color = "darkorange2",
+             fontface = "bold") +
+    annotate("label", x = Inf, y = Inf,
+             label =(paste("Rev:", show_revenue)),
+             vjust = 2.5, hjust = 1, size = 4,
+             color = "deepskyblue3",
+             fontface = "bold") +
+    annotate("label", x = Inf, y = Inf,
              label =(paste("Profit:", show_profit)),
-             vjust = 5.5, hjust = 1, size = 4,
-             color = "green3") +
+             vjust = 4, hjust = 1, size = 4,
+             color = "green3",
+             fontface = "bold") +
     theme(axis.text = element_text(size = 6),
           axis.title.x =element_text(size = 8),
           axis.title.y =element_text(size = 8))+
@@ -1200,6 +1202,8 @@ profitRevFunction <- function(price, data, type, variable, fixed, population, sa
   suppressWarnings(print(newPlot))
   return(fPi(price))
 }
+
+#profitRevFunction(50, dp, "Exponential", 10, 1e3, 1, 1)
 
 # if(testBool) profitRevFunction(100, tb, "Exponential", v, f, 1e6, 100)
 
@@ -1223,7 +1227,7 @@ profitCompare <- function(data, variable, fixed, population, sample = NA) nBestP
 
 
 #Test
-# if(testBool) profitCompare(tb, v, f, Pop, 100)
+# if(testBool) profitCompare(dp, v, f, Pop, 100)
 
 
 
