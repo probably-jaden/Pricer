@@ -418,7 +418,7 @@ revenueFunction <- function(price, data, type, population, sample = NA){
              fontface = "bold") +
     annotate("label", x = Inf, y = Inf,
              label =(paste("Revenue:", show_revenue)),
-             vjust = 1, hjust = 1.8, size = 4,
+             vjust = 1, hjust = 2.5, size = 4,
              color = "skyblue4",
              fontface = "bold") +
     theme(axis.text = element_text(size = 6),
@@ -888,7 +888,7 @@ revenuePlot <- function(data, type, population, sample = NA){
              fontface = "bold") +
     annotate("label", x = Inf, y = Inf,
              label =(paste("Rev:", show_Rev, "  ")),
-             vjust = 1, hjust = 2.25, size = 3,
+             vjust = 1, hjust = 2.5, size = 3,
              color = "deepskyblue4", alpha = .8,
              fontface = "bold") +
     scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
@@ -1048,7 +1048,7 @@ profitFunction <- function(price, data, type, variable, fixed, population, sampl
              fontface = "bold") +
     annotate("label", x = Inf, y = Inf,
              label =(paste("Profit: $", show_profit, "")),
-             vjust = 1, hjust = 2, size = 4,
+             vjust = 1, hjust = 2.5, size = 4,
              color = "darkgreen",
              fontface = "bold") +
     theme(axis.text = element_text(size = 6),
@@ -1119,7 +1119,7 @@ profitPlot <- function(data, type, variable, fixed, population, sampleSize = NA,
              fontface = "bold") +
     annotate("label", x = Inf, y = Inf,
              label =(paste("Profit:", show_Profit, "  ")),
-             vjust = 1, hjust = 2.3, size = 3,
+             vjust = 1, hjust = 2.5, size = 3,
              color = "darkgreen", alpha = .8,
              fontface = "bold") +
     theme(axis.text = element_text(size = 6),
