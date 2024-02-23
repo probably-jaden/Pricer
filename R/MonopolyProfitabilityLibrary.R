@@ -411,14 +411,16 @@ revenueFunction <- function(price, data, type, population, sample = NA){
                        limits = c(0, NA))+
     theme(plot.title = element_text(face = "bold"))+
     theme_minimal()+
-    annotate("text", x = Inf, y = Inf,
+    annotate("label", x = Inf, y = Inf,
              label = paste("Price:", show_price),
-             vjust = 1.5, hjust = 1, size = 4,
-             color = "skyblue3") +
-    annotate("text", x = Inf, y = Inf,
+             vjust = 1, hjust = 1, size = 4,
+             color = "skyblue4",
+             fontface = "bold") +
+    annotate("label", x = Inf, y = Inf,
              label =(paste("Revenue:", show_revenue)),
-             vjust = 3.5, hjust = 1, size = 4,
-             color = "skyblue3") +
+             vjust = 1, hjust = 1.8, size = 4,
+             color = "skyblue4",
+             fontface = "bold") +
     theme(axis.text = element_text(size = 6),
           axis.title.x =element_text(size = 8),
           axis.title.y =element_text(size = 8))+
@@ -427,6 +429,8 @@ revenueFunction <- function(price, data, type, population, sample = NA){
   suppressWarnings(print(newPlot))
   return(fR(price))
 }
+
+
 
 # if(testBool) revenueFunction(20, tb, "Sigmoid", 1e6)
 
@@ -880,11 +884,13 @@ revenuePlot <- function(data, type, population, sample = NA){
     annotate("label", x = Inf, y = Inf,
               label = paste("Price:", show_Price, " "),
               vjust = 1, hjust = 1, size = 3,
-             color = "deepskyblue4", alpha = .8) +
+             color = "deepskyblue4", alpha = .8,
+             fontface = "bold") +
     annotate("label", x = Inf, y = Inf,
              label =(paste("Rev:", show_Rev, "  ")),
              vjust = 1, hjust = 2.25, size = 3,
-             color = "deepskyblue4", alpha = .8) +
+             color = "deepskyblue4", alpha = .8,
+             fontface = "bold") +
     scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, NA))+
@@ -1035,14 +1041,16 @@ profitFunction <- function(price, data, type, variable, fixed, population, sampl
                        limits = c(0, NA))+
     theme(plot.title = element_text(face = "bold"))+
     theme_minimal()+
-    annotate("text", x = Inf, y = Inf,
+    annotate("label", x = Inf, y = Inf,
              label = paste("Price:", show_price),
-             vjust = 1.5, hjust = 1, size = 4,
-             color = "darkgreen") +
-    annotate("text", x = Inf, y = Inf,
-             label =(paste("Profit: $", show_profit)),
-             vjust = 3.5, hjust = 1, size = 4,
-             color = "darkgreen") +
+             vjust = 1, hjust = 1, size = 4,
+             color = "darkgreen",
+             fontface = "bold") +
+    annotate("label", x = Inf, y = Inf,
+             label =(paste("Profit: $", show_profit, "")),
+             vjust = 1, hjust = 2, size = 4,
+             color = "darkgreen",
+             fontface = "bold") +
     theme(axis.text = element_text(size = 6),
           axis.title.x =element_text(size = 8),
           axis.title.y =element_text(size = 8))+
@@ -1051,6 +1059,8 @@ profitFunction <- function(price, data, type, variable, fixed, population, sampl
   suppressWarnings(print(newPlot))
   return(fPi(price))
 }
+
+
 
 # if(testBool) profitFunction(30.5683, tb, "Exponential", v, f, 1e6)
 
@@ -1105,11 +1115,13 @@ profitPlot <- function(data, type, variable, fixed, population, sampleSize = NA,
     annotate("label", x = Inf, y = Inf,
              label = paste("Price:", show_Price),
              vjust = 1, hjust = 1, size = 3,
-             color = "darkgreen", alpha = .8) +
+             color = "darkgreen", alpha = .8,
+             fontface = "bold") +
     annotate("label", x = Inf, y = Inf,
              label =(paste("Profit:", show_Profit, "  ")),
-             vjust = 1, hjust = 2.1, size = 3,
-             color = "darkgreen", alpha = .8) +
+             vjust = 1, hjust = 2.3, size = 3,
+             color = "darkgreen", alpha = .8,
+             fontface = "bold") +
     theme(axis.text = element_text(size = 6),
           axis.title.x =element_text(size = 8),
           axis.title.y =element_text(size = 8))+
@@ -1122,6 +1134,7 @@ profitPlot <- function(data, type, variable, fixed, population, sampleSize = NA,
 
   return(plot)
 }
+
 
 #Test
 # if(testBool) profitPlot(tb, "Exponential", v, f, Pop)
