@@ -39,7 +39,7 @@ check_packages <- function() {
 
 
 #testBool <- TRUE
-#test dataset for durable breaking Sigmoid
+
 #if(testBool) dp <- dplyr::tibble(wtp = c(64, 18, 46, 92, 110, 138, 113, 89, 0, 258, 205, 0, 18, 202, 46, 258, 0, 141, 0, 46, 61, 101, 64, 215, 95, 43, 46, 46, 132, 21, 18, 113, 9, 18, 21, 18, 104, 6, 0, 101, 6, 224, 322, 18, 316, 156, 104, 322, 285, 208, 316, 0, 288, 95, 6, 52, 46, 0, 18, 64, 98, 248, 18, 110, 0, 67, 0, 18, 0, 89, 132, 101, 18, 215, 18, 0, 0, 104, 285, 3, 46, 141, 322, 291, 89, 0, 101, 113, 67, 3, 132, 215, 224, 291, 9, 291, 267, 6, 6, 61, 178, 285, 64, 126, 0, 101, 15))
 
 #dp <- demandDurable(dp)
@@ -110,8 +110,6 @@ removeDollarSigns <- function(vector){
     mutate(wtp = as.numeric(gsub("\\$", "", wtp)))
   return(vector)
 }
-
-
 
 
 demandDurable <- function(data){
@@ -493,10 +491,11 @@ modelPlot <- function(data, type, x, y){
   newPlot <- sPlot +
     geom_function(fun = modelFun, color = "orchid", lwd = 1.5, alpha =.4) +
     labs(title = title)+
-    annotate("text", x = Inf, y = Inf,
-             label = bquote(R^2 == .(rSq)),
-             vjust = 2, hjust = 1.1, size = 5,
-             color = "darkorchid4", alpha = .1)
+    annotate("label", x = Inf, y = Inf,
+             label = paste("R squared:", rSq),
+             vjust = 1, hjust = 1,
+             color = "darkorchid", alpha = .8,
+             fontface = "bold")
 
   return((newPlot))
 }
@@ -525,7 +524,8 @@ demandPlot <- function(data, type, population, sample = NA){
     annotate("label", x = Inf, y = Inf,
              label = paste("R squared:", rSq),
              vjust = 1, hjust = 1,
-             color = "darkorange", alpha = .8)+
+             color = "darkorange", alpha = .8,
+             fontface = "bold")+
     scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, NA))+
