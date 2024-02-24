@@ -502,6 +502,8 @@ modelPlot <- function(data, type, x, y){
 }
 # if(testBool) modelPlot(tb, "Sigmoid", "wtp", "quantity")
 
+library(latex2exp)
+
 demandPlot <- function(data, type, population, sample = NA){
   check_packages()
   title <- paste("Demand:", type)
@@ -522,7 +524,7 @@ demandPlot <- function(data, type, population, sample = NA){
     labs(title = title, x = "Price ($'s)", y = "Quantity Sold ") +
     annotate("text", x = Inf, y = Inf,
              label = bquote(R^2 == .(rSq)),
-             vjust = 2, hjust = 1.1, size = 5,
+             vjust = 1, hjust = 1, size = 7,
              color = "darkorange", alpha = .3)+
     scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
@@ -535,7 +537,7 @@ demandPlot <- function(data, type, population, sample = NA){
     theme(plot.title = element_text(face = "bold"))
   return(newPlot)
 }
-# if(testBool) demandPlot(tb, "Sigmoid", 1e6, 100)
+#if(testBool) demandPlot(dp, "Exponential", 1e6, 100)
 
 linFormulaFancy <- function(data, population, sample = NA){
   check_packages()
