@@ -522,7 +522,7 @@ demandPlot <- function(data, type, population, sample = NA){
                   color = "orange", lwd = 1.5, alpha = .8) +
     geom_point(mapping = aes(x = wtp, y = scaled_quantity), color = "darkorange", size = 2)+
     labs(title = title, x = "Price ($'s)", y = "Quantity Sold ") +
-    annotate("text", x = Inf, y = Inf,
+    annotate("label", x = Inf, y = Inf,
              label = paste("R squared:", rSq),
              vjust = 1, hjust = 1,
              color = "darkorange", alpha = .8)+
