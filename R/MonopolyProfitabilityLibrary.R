@@ -507,7 +507,7 @@ library(latex2exp)
 demandPlot <- function(data, type, population, sample = NA){
   check_packages()
   title <- paste("Demand:", type)
-  rSq <- round(rSquaredDemand(data, type), 2)
+  rSq <- round(rSquaredDemand(data, type), 3)
   fQ <- fQ(data, type, population, sample)
   if(class(fQ) == class(NA))return()
 
@@ -523,9 +523,9 @@ demandPlot <- function(data, type, population, sample = NA){
     geom_point(mapping = aes(x = wtp, y = scaled_quantity), color = "darkorange", size = 2)+
     labs(title = title, x = "Price ($'s)", y = "Quantity Sold ") +
     annotate("text", x = Inf, y = Inf,
-             label = bquote(R^2 == .(rSq)),
-             vjust = 1, hjust = 1, size = 7,
-             color = "darkorange", alpha = .3)+
+             label = paste("R squared:", rSq),
+             vjust = 1, hjust = 1,
+             color = "darkorange", alpha = .8)+
     scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
                        breaks = scales::extended_breaks(),
                        limits = c(0, NA))+
