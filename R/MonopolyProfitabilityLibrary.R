@@ -484,7 +484,7 @@ modelPlot <- function(data, type, x, y){
   check_packages()
   sPlot <- scatterPlot(data, x, y)
   title <- paste0(x, " vs. ", y, ": ", type)
-  rSq <- round(rSquared(data, type, x, y), 2)
+  rSq <- round(rSquared(data, type, x, y), 3)
   modelFun <- modelFun(data, type, x, y)
   if(class(modelFun) == class(NA)) return()
 
