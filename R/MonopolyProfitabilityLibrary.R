@@ -305,10 +305,33 @@ modelFun <- function(data, type, x, y){
          stop("Invalid type"))
 }
 
-modelFunction <- function(price, data, type, x, y){
+modelFunction <- function(input, data, type, x, y){
   check_packages()
-  return(modelFun(data, type, x, y)(price))
+
+  mf <- modelFun(data, type, x, y)
+  output <- mf(input)
+
+  mPlot <- modelPlot(data, type, x, y)+
+    geom_segment(x = input, y = 0, xend = input, yend = output,
+               linetype = "dashed", color = "orchid", lwd = .5, alpha = .5)+
+    geom_segment(x = 0, y = output, xend = input, yend = output,
+               linetype = "dashed", color = "orchid", lwd = .3, alpha = .5)
+
+  suppressWarnings(print(mPlot))
+  return(output)
 }
+
+modelOptimize <- function(data, type, x, y){
+  check_packages()
+  mf <- modelFun(data, type, x, y)
+  opt_output <- optimize(mf, lower = 0, upper = max(data[x]), maximum = TRUE )[[2]]
+  opt_input <- round(optimize(mf, lower = 0, upper = max(data[x]), maximum = TRUE)[[1]],2)
+
+  modelFunction(opt_input, data, type, x, y)
+
+  return(list(opt_output, opt_input))
+}
+
 
 scaleFunction <- function(data, type, x, y, pop, sample = NA, fun = NA){
   check_packages()
