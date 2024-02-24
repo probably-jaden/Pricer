@@ -307,19 +307,43 @@ modelFun <- function(data, type, x, y){
 
 modelFunction <- function(input, data, type, x, y){
   check_packages()
+  title <- paste0(x, " vs. ", y, ": ", type)
 
   mf <- modelFun(data, type, x, y)
   output <- mf(input)
 
-  mPlot <- modelPlot(data, type, x, y)+
+  mPlot <- ggplot(data = data) +
+    xlim(0, max(data[x]))+
+    geom_function(fun = mf, color = "orchid", lwd = 1.8, alpha = .8)+
+    labs(title = title, x = x, y = y) +
+    scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()),
+                       breaks = scales::extended_breaks(),
+                       limits = c(0, NA))+
+    theme(plot.title = element_text(face = "bold"))+
+    theme_minimal()+
+    annotate("label", x = Inf, y = Inf,
+             label = paste("Input:", round(input,2)),
+             vjust = 1, hjust = 1, size = 4,
+             color = "darkorchid", alpha = .8,
+             fontface = "bold") +
+    annotate("label", x = Inf, y = Inf,
+             label = paste("Output:", conNum_short(round(output,2))),
+             vjust = 2.5, hjust = 1, size = 4,
+             color = "darkorchid", alpha = .8,
+             fontface = "bold") +
+    theme(axis.text = element_text(size = 6),
+          axis.title.x =element_text(size = 8),
+          axis.title.y =element_text(size = 8))+
+    theme(plot.title = element_text(face = "bold"))+
     geom_segment(x = input, y = 0, xend = input, yend = output,
-               linetype = "dashed", color = "orchid", lwd = .5, alpha = .5)+
+               linetype = "dashed", color = "darkorchid", lwd = .6, alpha = .5)+
     geom_segment(x = 0, y = output, xend = input, yend = output,
-               linetype = "dashed", color = "orchid", lwd = .3, alpha = .5)
+               linetype = "dashed", color = "darkorchid", lwd = .4, alpha = .5)
 
   suppressWarnings(print(mPlot))
   return(output)
 }
+
 
 modelOptimize <- function(data, type, x, y){
   check_packages()
