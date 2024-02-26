@@ -548,7 +548,6 @@ modelPlot <- function(data, type, x, y){
 }
 # if(testBool) modelPlot(tb, "Sigmoid", "wtp", "quantity")
 
-library(latex2exp)
 
 demandPlot <- function(data, type, population, sample = NA){
   check_packages()
@@ -1052,6 +1051,13 @@ costFunction <- function(price, data, type, variable, fixed, population, sample 
   if(class(fQ) == class(NA)) return(NA)
   return(fC(variable, fixed, fQ)(price))
 }
+
+# search for lowest function value at 0
+# look for the next intersect point
+#
+
+
+
 # if(testBool) costFunction(100, tb, "Sigmoid", 5, 2e5, 1e6, 100)
 
 # for internal code use
@@ -1277,6 +1283,8 @@ profitCompare <- function(data, variable, fixed, population, sample = NA) nBestP
 
 #Test
 # if(testBool) profitCompare(dp, v, f, Pop, 100)
+
+scaleFunction
 
 
 
