@@ -83,7 +83,6 @@ conNum_long <- function(number) {
 # 2. Make the data into a tibble
 
 quantityCreation <- function(data){
-  check_packages()
 
   data <- data %>%
     group_by(wtp) %>%
@@ -95,8 +94,6 @@ quantityCreation <- function(data){
 }
 
 revenueCreation <- function(data){
-  check_packages()
-
   data <- data %>%
     mutate(revenue = wtp * quantity)
 
@@ -104,20 +101,70 @@ revenueCreation <- function(data){
 }
 
 removeDollarSigns <- function(vector){
-  check_packages()
-
   vector <- vector %>%
     mutate(wtp = as.numeric(gsub("\\$", "", wtp)))
   return(vector)
 }
 
+# initialize a matrix of 0s that's 10x10
+#mat <- matrix(0, nrow = 10, ncol = 10)
+#vec <- vector("numeric", length = 10)
+#lis <- list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+#c_thing <- c("col1", "col2", "col3")
 
-demandDurable <- function(data){
-  check_packages()
+#class(c_thing)
+
+#c_thing[1]
+
+#length(c_thing)
+#nrow(lis)
+#dim(c_thing)
+
+#while
+#data <- tibble(col1 = c("this", "$4", 4), col2 =  c(4, 2, "$3"))
+
+#any(grepl("\\$", data))
+#data <- removeDollarSigns(data)
+
+quantityCreation_multi <- function(data, col1 = NULL, col2 = NULL){
+
+  Q1 <- paste0("Q_", col1)
+  Q2 <- paste0("Q_", col2)
+
+  data <- data %>%
+    group_by(data[col1], data[col2]) %>%
+    summarize(count = n()) %>%
+    ungroup()
+
+  data <- data %>%
+    arrange(desc(data[col1]), data[col2])
+  data[Q1] <- cumsum(data["count"])
+
+  data <- data %>%
+    arrange(desc(data[col2]), data[col1])
+  data[Q2] <- cumsum(data["count"])
+
+  return(data)
+}
+
+#test <- c("this", 4, "$3", 34.3)
+
+#demandDurable(cd, "WTP_durable_cupcake", "WTP_durable_donut")
+
+
+demandDurable <- function(data, col1 = NULL, col2 = NULL){ #, cols = NULL){
   # Data scrubbing Willingness to Pay variable
   # if vector is labelled
-  if(!any(colnames(data) %in% "wtp")){
 
+  # for length of cols do the thing
+
+  if(!is.null(col1) & !is.null(col2)){
+    data <- quantityCreation_multi(data, col1, col2)
+
+    return(data)
+  }
+
+  if (!any(colnames(data) %in% "wtp")){
     if("WTP" %in% colnames(data)){
       data <- data %>%
         rename(wtp = WTP)
@@ -129,8 +176,11 @@ demandDurable <- function(data){
     }
   }
 
+  data <- data %>%
+    select(wtp)
+
   # if vector is numeric / $ signs
-  if(any(grepl("\\$", data$wtp))){
+  if(any(grepl("\\$", data))){
     data <- removeDollarSigns(data)
     print('removed Dollar signs')
   }
@@ -141,10 +191,9 @@ demandDurable <- function(data){
     filter(!is.na(wtp)) %>%
     mutate(wtp = as.numeric(wtp))
 
-  # Make the quantity variable
+    # Make the quantity variable
   data <- quantityCreation(data)
   data <- revenueCreation(data)
-
   return(data)
 }
 
@@ -159,7 +208,6 @@ pivotData <- function(data, columns, valueName, columnName){
 
 
 groupByPrice_ThenSum <- function(data, price, varToSum, newName){
-  check_packages()
 
   data <- data %>%
     group_by({{price}}) %>%
@@ -169,7 +217,7 @@ groupByPrice_ThenSum <- function(data, price, varToSum, newName){
 }
 
 demandNonDurable <- function(data, price, quantityPerPerson){
-  check_packages()
+
   data <- groupByPrice_ThenSum(data, {{price}}, {{quantityPerPerson}}, "quantity") %>%
     mutate(revenue = {{price}} * quantity) %>%
     rename(wtp = {{price}}) %>%
@@ -181,7 +229,7 @@ demandNonDurable <- function(data, price, quantityPerPerson){
 
 
 scatterPlot <- function(data, xColumn, yColumn){
-  check_packages()
+
   # Check if columns exist in the data
   if (!(xColumn %in% names(data) && yColumn %in% names(data))) {
     stop("Specified columns do not exist in the data.")
@@ -232,6 +280,7 @@ revenueScatterPlot <- function(data){
   return(plot)
 }
 # if(testBool) revenueScatterPlot(tb)
+
 
 
 logErr <- .0000000000000000001
@@ -1284,7 +1333,6 @@ profitCompare <- function(data, variable, fixed, population, sample = NA) nBestP
 #Test
 # if(testBool) profitCompare(dp, v, f, Pop, 100)
 
-scaleFunction
 
 
 
