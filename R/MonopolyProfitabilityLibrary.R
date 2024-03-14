@@ -303,6 +303,12 @@ sigModel <- function(data, x, y){
   return (output)
 }
 
+linModel_multi <- function(data, x1, x2, y) lm(as.formula(paste(y, "~", x1, "+", x2)), data = data)
+expModel_multi <- function(data, x1, x2, y) lm(as.formula(paste("log(", y, " + ", logErr, ") ~", x1, "+", x2)), data = data)
+logModel_multi <- function(data, x1, x2, y) lm(as.formula(paste(y, "~ log(", x1, " + ", logErr, ")", "+", "log(", x2, " + ", logErr, ")")), data = data)
+powModel_multi <- function(data, x1, x2, y) lm(as.formula(paste("log(", y, " + ", logErr, ") ~ log(", x1, " + ", logErr, ")", "+", "log(", x2, " + ", logErr, ")")), data = data)
+
+
 
 
 anyModel <- function(data, type, x, y){
@@ -316,8 +322,22 @@ anyModel <- function(data, type, x, y){
          stop("Invalid type"))
 }
 
+anyModel_multi <- function(data, type, x1, x2, y){
+  check_packages()
+  switch(type,
+         Linear      = do.call("linModel_multi", list(data, x1, x2, y)),
+         Exponential = do.call("expModel_multi", list(data, x1, x2, y)),
+         Log         = do.call("logModel_multi", list(data, x1, x2, y)),
+         Power       = do.call("powModel_multi", list(data, x1, x2, y)),
+         #Sigmoid     = do.call("sigModel", list(data, x1, x2, y)),
+         stop("Invalid type"))
+}
+
+
 demandModel <- function(data, type) return(anyModel(data, type, "wtp", "quantity"))
 # if(testBool) demandModel(tb, "Sigmoid")
+
+demandModel_multi <- function(data, type) return(anyModel_multi(data, type, "wtp", "quantity"))
 
 modelSummary <- function(data, type, x, y){
   check_packages()
@@ -341,6 +361,39 @@ sigFun <- function(data, x, y) {
   return(fun)
 }
 
+linFun_multi <- function(data, x1, x2, y) {
+  model <- linModel_multi(data, x1, x2, y)
+  fun <- function(param1, param2){
+
+    coef(model)[[1]] + coef(model)[[2]] * param1 + coef(model)[[3]] * param2
+  }
+  return(fun)
+}
+
+expFun_multi <- function(data, x1, x2, y) {
+  model <- expModel_multi(data, x1, x2, y)
+  fun<-function(param1, param2){
+    exp(coef(model)[[1]] + ((coef(model)[[2]] * param1) + (coef(model)[[3]] * param2)))
+  }
+  return(fun)
+}
+
+logFun_multi <- function(data, x1, x2, y) {
+  model <- logModel_multi(data, x1, x2, y)
+
+  fun <- function(param1, param2){
+    coef(model)[[1]] + coef(model)[[2]] * log(param1) + coef(model)[[3]] * log(param2)
+  }
+  return(fun)
+}
+
+powFun_multi <- function(data, x1, x2, y){
+  model <- powModel_multi(data, x1, x2, y)
+  fun <- function(param1, param2){
+    exp(coef(model)[[1]] + coef(model)[[2]] * log(param1) + coef(model)[[3]] * log(param2))
+  }
+  return(fun)
+}
 
 
 modelFun <- function(data, type, x, y){
@@ -351,6 +404,15 @@ modelFun <- function(data, type, x, y){
          Log         = do.call("logFun", list(data, x, y)),
          Power       = do.call("powFun", list(data, x, y)),
          Sigmoid     = do.call("sigFun", list(data, x, y)),
+         stop("Invalid type"))
+}
+
+modelFun_multi <- function(data, type, x1, x2, y){
+  switch(type,
+         Linear      = do.call("linFun_multi", list(data, x1, x2, y)),
+         Exponential = do.call("expFun_multi", list(data, x1, x2, y)),
+         Log         = do.call("logFun_multi", list(data, x1, x2, y)),
+         Power       = do.call("powFun_multi", list(data, x1, x2, y)),
          stop("Invalid type"))
 }
 
@@ -416,14 +478,21 @@ scaleFunction <- function(data, type, x, y, pop, sample = NA, fun = NA){
   return(newFun)
 }
 
+scaleFunction_multi <- function(data, type, x1, x2, y, pop, sample = NA, fun = NA){
+  if(class(fun) == class(NA)) fun <- modelFun_multi(data, type, x1, x2, y)
+  if(class(fun) == class(NA)) return(NA)
+  if(class(sample) == class(NA)) sample <- nrow(data)
+  scaler <- (pop/sample)
+  newFun <-  function(x1, x2) fun(x1, x2) * scaler
+  return(newFun)
+}
+
 fQ <- function(data, type, population, sample = NA){
   check_packages()
   fQ <- scaleFunction(data, type, "wtp", "quantity", population, sample)
   if(class(fQ) == class(NA)) return(NA)
   return(fQ)
 }
-
-
 
 
 demandFunction <- function(price, data, type, population, sample = NA){
